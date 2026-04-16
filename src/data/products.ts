@@ -41,7 +41,7 @@ export const products: Product[] = [
     shortDescription: "Speciaal ontworpen ondergrondse container voor groente-, fruit- en tuinafval met ventilatie.",
     fullDescription: "De ondergrondse GFT-container is speciaal ontwikkeld voor de inzameling van organisch afval. Dankzij het geïntegreerde ventilatiesysteem wordt geurvorming geminimaliseerd. De container beschikt over een corrosiebestendige coating en is geschikt voor zowel particuliere als commerciële toepassingen. Het inwerpslot kan worden uitgerust met een toegangscontrolesysteem voor gecontroleerde afgifte.",
     price: "€ 0,00",
-    image: "/placeholder.svg",
+    image: productGft,
     specs: [
       { label: "Inhoud", value: "3.000 liter" },
       { label: "Materiaal", value: "Verzinkt staal met anti-corrosie coating" },
@@ -58,7 +58,7 @@ export const products: Product[] = [
     shortDescription: "Ondergrondse container specifiek voor papier en karton, met extra brede inwerpopening.",
     fullDescription: "Deze ondergrondse papiercontainer is geoptimaliseerd voor de inzameling van papier en karton. De extra brede inwerpopening maakt het eenvoudig om ook grotere stukken karton in te werpen. De container is voorzien van een waterafstotende binnencoating om het papier droog te houden tot de lediging. Ideaal voor gemeenten en VvE's die streven naar een schone en overzichtelijke leefomgeving.",
     price: "€ 0,00",
-    image: "/placeholder.svg",
+    image: productPapier,
     specs: [
       { label: "Inhoud", value: "5.000 liter" },
       { label: "Materiaal", value: "Verzinkt staal" },
@@ -75,7 +75,7 @@ export const products: Product[] = [
     shortDescription: "Geluiddempende ondergrondse glascontainer met gescheiden inwerp voor wit, groen en bruin glas.",
     fullDescription: "De ondergrondse glascontainer van B-Advice is voorzien van geavanceerde geluidsdemping, waardoor overlast voor omwonenden tot een minimum wordt beperkt. De container kan worden uitgerust met gescheiden inwerpopeningen voor wit, groen en bruin glas. De robuuste constructie is bestand tegen de impact van glasscherven en garandeert een lange levensduur met minimaal onderhoud.",
     price: "€ 0,00",
-    image: "/placeholder.svg",
+    image: productGlas,
     specs: [
       { label: "Inhoud", value: "4.000 liter" },
       { label: "Materiaal", value: "Verzinkt staal met geluidsdemping" },
