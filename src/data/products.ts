@@ -1,3 +1,9 @@
+import productRestafval from "@/assets/product-restafval.jpg";
+import productGft from "@/assets/product-gft.jpg";
+import productPapier from "@/assets/product-papier.jpg";
+import productGlas from "@/assets/product-glas.jpg";
+import productTextiel from "@/assets/product-textiel.jpg";
+
 export interface Product {
   id: string;
   slug: string;
