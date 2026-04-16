@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Leaf, Lightbulb, Shield, Recycle, Wrench, ClipboardList, TrendingUp, Settings, FileText, ArrowRight, Phone, Mail, MapPin, Monitor } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
+import { services } from "@/data/services";
 
 const iconMap: Record<string, React.ReactNode> = {
   Recycle: <Recycle className="w-7 h-7" />,
@@ -20,14 +21,8 @@ const features = [
   { icon: <Shield className="w-8 h-8" />, title: "Betrouwbaarheid", desc: "Al jaren de vertrouwde partner van gemeenten en organisaties in heel Nederland." },
 ];
 
-const homeServices = [
-  { icon: "Recycle", title: "Afvalinzameling & Management", desc: "Volledig beheer van afvalinzameling voor gemeenten en bedrijven." },
-  { icon: "Wrench", title: "Plaatsen van containersystemen", desc: "Professionele plaatsing van ondergrondse containersystemen." },
-  { icon: "ClipboardList", title: "Projectmanagement", desc: "Deskundig projectmanagement voor complexe afvalprojecten." },
-  { icon: "TrendingUp", title: "Meerjaren Investeringsplan", desc: "Strategische meerjarenplannen voor uw afvalinfrastructuur." },
-  { icon: "Settings", title: "Beheer, onderhoud & refurbish", desc: "Preventief onderhoud en refurbishment van containerparken." },
-  { icon: "FileText", title: "Aanbesteding & bestek", desc: "Begeleiding bij aanbestedingen en het opstellen van bestekken." },
-];
+// Eerste 6 diensten voor de homepage
+const homeServices = services.slice(0, 6);
 
 const Index: React.FC = () => {
   return (
@@ -37,10 +32,10 @@ const Index: React.FC = () => {
         description="B-Advice is dé specialist in duurzame afvalinzameling en ondergrondse containersystemen in Nederland. Ontdek onze producten en diensten."
       />
 
-      {/* Hero */}
+      {/* Hero — split layout: tekst links, foto rechts */}
       <section className="relative min-h-screen flex items-center bg-hero overflow-hidden">
         {/* Animated bg elements */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 pointer-events-none">
           <motion.div
             className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-secondary/5 blur-[120px]"
             animate={{ scale: [1, 1.2, 1], x: [0, 30, 0], y: [0, -20, 0] }}
@@ -51,11 +46,6 @@ const Index: React.FC = () => {
             animate={{ scale: [1, 1.15, 1], x: [0, -20, 0], y: [0, 30, 0] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute top-1/2 left-1/2 w-[300px] h-[300px] rounded-full bg-primary-foreground/3 blur-[80px]"
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
         </div>
 
         {/* Grid pattern overlay */}
@@ -64,61 +54,140 @@ const Index: React.FC = () => {
           backgroundSize: "60px 60px",
         }} />
 
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-32 pb-20">
-          <div className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <span className="inline-block px-4 py-1.5 bg-secondary/15 text-secondary text-sm font-semibold rounded-full mb-6 border border-secondary/20">
-                Uw afval en container specialist
-              </span>
-            </motion.div>
-
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary-foreground tracking-tight leading-[1.1]"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-            >
-              De toekomst van{" "}
-              <span className="text-gradient">afvalinzameling</span>
-              , onder de grond
-            </motion.h1>
-
-            <motion.p
-              className="mt-6 text-lg md:text-xl text-primary-foreground/70 max-w-2xl leading-relaxed"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            >
-              B-Advice ontwikkelt duurzame oplossingen voor afvalinzameling met ondergrondse containersystemen. 
-              Innovatief, betrouwbaar en met respect voor de leefomgeving.
-            </motion.p>
-
-            <motion.div
-              className="mt-10 flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-            >
-              <Link
-                to="/producten"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-secondary text-secondary-foreground font-bold rounded-xl hover:brightness-110 transition-all glow-accent text-sm"
+        <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-28 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Linker kolom: tekst */}
+            <div className="max-w-2xl">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                Bekijk onze producten
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a
-                href="https://b-organized.info/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-3.5 border-2 border-primary-foreground/20 text-primary-foreground font-bold rounded-xl hover:border-secondary hover:text-secondary transition-all text-sm"
+                <span className="inline-block px-4 py-1.5 bg-secondary/15 text-secondary text-sm font-semibold rounded-full mb-6 border border-secondary/20">
+                  Uw afval en container specialist
+                </span>
+              </motion.div>
+
+              <motion.h1
+                className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-primary-foreground tracking-tight leading-[1.1]"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
               >
-                <Monitor className="w-4 h-4" />
-                Login B-Organized
-              </a>
+                De toekomst van{" "}
+                <span className="text-gradient">afvalinzameling</span>
+                , onder de grond
+              </motion.h1>
+
+              <motion.p
+                className="mt-6 text-lg md:text-xl text-primary-foreground/70 max-w-xl leading-relaxed"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              >
+                B-Advice ontwikkelt duurzame oplossingen voor afvalinzameling met ondergrondse containersystemen.
+                Innovatief, betrouwbaar en met respect voor de leefomgeving.
+              </motion.p>
+
+              <motion.div
+                className="mt-10 flex flex-wrap gap-4"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
+              >
+                <Link
+                  to="/producten"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-secondary text-secondary-foreground font-bold rounded-xl hover:brightness-110 transition-all glow-accent text-sm"
+                >
+                  Bekijk onze producten
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a
+                  href="https://b-organized.info/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 border-2 border-primary-foreground/20 text-primary-foreground font-bold rounded-xl hover:border-secondary hover:text-secondary transition-all text-sm"
+                >
+                  <Monitor className="w-4 h-4" />
+                  Login B-Organized
+                </a>
+              </motion.div>
+
+              {/* Statistieken */}
+              <motion.div
+                className="mt-12 grid grid-cols-3 gap-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              >
+                {[
+                  { num: "15+", label: "Jaar ervaring" },
+                  { num: "50+", label: "Gemeenten" },
+                  { num: "5000+", label: "Containers geplaatst" },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="text-2xl font-extrabold text-secondary">{stat.num}</div>
+                    <div className="text-xs text-primary-foreground/50 mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Rechter kolom: foto */}
+            <motion.div
+              className="relative hidden lg:block"
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
+                {/* Rechtenvrije foto: moderne duurzame stad / groene infrastructuur */}
+                <img
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=85"
+                  alt="Duurzame afvalinzameling en groene infrastructuur"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  onError={(e) => {
+                    // Fallback naar tweede optie als eerste niet laadt
+                    const img = e.currentTarget;
+                    if (!img.dataset.fallback) {
+                      img.dataset.fallback = "1";
+                      img.src = "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=900&q=85";
+                    }
+                  }}
+                />
+                {/* Overlay gradient voor overgang naar achtergrond */}
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary/20" />
+              </div>
+
+              {/* Badge over de foto */}
+              <motion.div
+                className="absolute -bottom-4 -left-4 bg-card rounded-2xl shadow-xl p-4 border border-border/50"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-secondary/15 flex items-center justify-center">
+                    <Recycle className="w-5 h-5 text-secondary" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-foreground">Duurzaam gecertificeerd</div>
+                    <div className="text-xs text-muted-foreground">ISO 14001 gecertificeerd</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Tweede badge */}
+              <motion.div
+                className="absolute -top-4 -right-4 bg-card rounded-2xl shadow-xl p-4 border border-border/50"
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              >
+                <div className="text-center">
+                  <div className="text-xl font-extrabold text-primary">98%</div>
+                  <div className="text-xs text-muted-foreground">Klanttevredenheid</div>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -167,14 +236,20 @@ const Index: React.FC = () => {
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {homeServices.map((s, i) => (
-              <AnimatedSection key={s.title} delay={i * 0.1}>
-                <div className="group p-6 rounded-xl bg-card shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/50 h-full">
+              <AnimatedSection key={s.id} delay={i * 0.1}>
+                <Link
+                  to={`/diensten/${s.slug}`}
+                  className="group p-6 rounded-xl bg-card shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/50 h-full flex flex-col"
+                >
                   <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors">
                     {iconMap[s.icon]}
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">{s.shortDescription}</p>
+                  <span className="inline-flex items-center gap-1 mt-4 text-primary text-sm font-semibold group-hover:text-secondary transition-colors">
+                    Meer informatie <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </Link>
               </AnimatedSection>
             ))}
           </div>
@@ -204,7 +279,7 @@ const Index: React.FC = () => {
                 B-Organized: uw containerpark digitaal beheerd
               </h2>
               <p className="text-primary-foreground/70 text-lg leading-relaxed mb-8">
-                Met B-Organized beheert u uw volledige containerpark vanuit één overzichtelijk dashboard. 
+                Met B-Organized beheert u uw volledige containerpark vanuit één overzichtelijk dashboard.
                 Real-time data, onderhoudsplanning en rapportages — alles op één plek.
               </p>
               <div className="flex flex-wrap justify-center gap-4">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Menu, X, TreePine } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -40,18 +40,15 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center transition-transform group-hover:scale-110">
-              <TreePine className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <span className="text-xl font-bold text-primary-foreground tracking-tight">B-Advice</span>
-              <span className="block text-[10px] text-secondary font-medium -mt-1 tracking-wider uppercase">
-                {/* LOGO PLACEHOLDER — replace with B-Advice logo/tree icon */}
-                Container Specialist
-              </span>
-            </div>
+          {/* Logo — SVG schaalbaar en scherp op elk scherm */}
+          <Link to="/" className="flex items-center group shrink-0">
+            <img
+              src="/logo.svg"
+              alt="B-Advice Project & Wastemanagement"
+              className="h-11 w-auto transition-transform group-hover:scale-105"
+              width="220"
+              height="55"
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -61,7 +58,7 @@ const Navbar: React.FC = () => {
                 key={link.to}
                 to={link.to}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  location.pathname === link.to
+                  location.pathname === link.to || location.pathname.startsWith(link.to + "/") && link.to !== "/"
                     ? "text-secondary"
                     : "text-primary-foreground/80 hover:text-secondary"
                 }`}
@@ -95,6 +92,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 text-primary-foreground"
+              aria-label="Menu openen"
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

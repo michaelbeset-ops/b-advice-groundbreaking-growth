@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import OverOns from "./pages/OverOns";
 import Diensten from "./pages/Diensten";
+import DienstDetail from "./pages/DienstDetail";
 import Producten from "./pages/Producten";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
@@ -23,6 +24,9 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// BASE_URL wordt ingesteld via vite.config.ts (/ in dev, /repo-naam/ in productie)
+const basename = import.meta.env.BASE_URL;
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -30,13 +34,14 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter basename={basename}>
             <Navbar />
             <main className="min-h-screen">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/over-ons" element={<OverOns />} />
                 <Route path="/diensten" element={<Diensten />} />
+                <Route path="/diensten/:slug" element={<DienstDetail />} />
                 <Route path="/producten" element={<Producten />} />
                 <Route path="/producten/:slug" element={<ProductDetail />} />
                 <Route path="/winkelwagen" element={<Cart />} />
