@@ -92,7 +92,7 @@ export const products: Product[] = [
     shortDescription: "Ondergrondse container voor textiel en kleding, met droge opslag en anti-vandalisme beveiliging.",
     fullDescription: "De ondergrondse textielcontainer biedt een veilige en droge opslagplaats voor ingezameld textiel en kleding. De container is voorzien van een anti-vandalismeconstructie en een waterdicht afdeksysteem dat het ingezamelde textiel beschermt tegen weersinvloeden. Geschikt voor plaatsing in woonwijken, bij winkelcentra en op milieustraten. De inwerpopening is ontworpen om ongewenst afval te voorkomen.",
     price: "€ 0,00",
-    image: "/placeholder.svg",
+    image: productTextiel,
     specs: [
       { label: "Inhoud", value: "3.500 liter" },
       { label: "Materiaal", value: "Verzinkt staal met waterdichte coating" },
