@@ -24,7 +24,7 @@ export const products: Product[] = [
     shortDescription: "Hoogwaardige ondergrondse container voor restafval met een groot inwerpvolume en duurzame constructie.",
     fullDescription: "De ondergrondse restafvalcontainer van B-Advice is ontworpen voor intensief gebruik in woonwijken en bedrijventerreinen. Met een robuuste stalen constructie en een slimme inwerpzuil biedt deze container een hygiënische en ruimtebesparende oplossing voor restafvalinzameling. De container is volledig recyclebaar en voldoet aan alle Nederlandse en Europese veiligheidsnormen. Dankzij het modulaire ontwerp is plaatsing snel en efficiënt, met minimale overlast voor de omgeving.",
     price: "€ 0,00",
-    image: "/placeholder.svg",
+    image: productRestafval,
     specs: [
       { label: "Inhoud", value: "5.000 liter" },
       { label: "Materiaal", value: "Verzinkt staal" },
