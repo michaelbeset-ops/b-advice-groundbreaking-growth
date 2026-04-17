@@ -1,6 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 type V3 = { x: number; y: number; z: number };
+
+type Face = {
+  pts: V3[];
+  fill: string;
+  stroke?: string;
+  sw?: number;
+  glow?: boolean;
+  z: number;
+};
 
 // hsl(72 72% 56%) ≈ rgb(191,224,62)
 const ACCENT = '#bfe03e';
@@ -40,11 +49,10 @@ export default function HeroCanvas() {
     ro.observe(canvas);
     resize();
 
-    // Perspective projection with downward camera tilt
     const project = (v: V3): [number, number, number] => {
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
-      const TILT = 0.35; // ~20° downward tilt
+      const TILT = 0.35;
       const ty = v.y * Math.cos(TILT) - v.z * Math.sin(TILT);
       const tz = v.y * Math.sin(TILT) + v.z * Math.cos(TILT);
       const fov = Math.min(w, h) * 0.75;
@@ -75,7 +83,6 @@ export default function HeroCanvas() {
       const h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
 
-      // Spawn particles from container opening
       if (frame % 7 === 0) {
         particles.push({
           x: (Math.random() - 0.5) * 1.2,
@@ -94,15 +101,11 @@ export default function HeroCanvas() {
       }
 
       const r = (x: number, y: number, z: number) => rotY(x, y, z, angle);
-
-      // Container and ground dimensions
       const CW = 0.8, CD = 0.8, CH = 1.85, GS = 3.5;
 
       const T = [r(-CW, 0, -CD), r(CW, 0, -CD), r(CW, 0, CD), r(-CW, 0, CD)];
       const B = [r(-CW, -CH, -CD), r(CW, -CH, -CD), r(CW, -CH, CD), r(-CW, -CH, CD)];
       const G = [r(-GS, 0, -GS), r(GS, 0, -GS), r(GS, 0, GS), r(-GS, 0, GS)];
-
-      type Face = { pts: V3[]; fill: string; stroke?: string; sw?: number; glow?: boolean; z: number };
 
       const faces: Face[] = [
         { pts: G, fill: '#0e1a12', stroke: accentA(0.08), sw: 0.5, z: avgZ(G) },
@@ -121,7 +124,6 @@ export default function HeroCanvas() {
         if (f.glow) ctx.restore();
       }
 
-      // Ground grid overlay
       ctx.save();
       ctx.globalAlpha = 0.055;
       ctx.strokeStyle = ACCENT;
@@ -135,21 +137,22 @@ export default function HeroCanvas() {
       }
       ctx.restore();
 
-      // LED strips on 4 vertical edges
       ctx.save();
       ctx.shadowBlur = 10;
       ctx.shadowColor = ACCENT;
       ctx.strokeStyle = ACCENT;
       ctx.lineWidth = 1.5;
-      for (const [ex, ez] of [[-CW + 0.07, CD], [CW - 0.07, CD], [CW - 0.07, -CD], [-CW + 0.07, -CD]] as [number, number][]) {
+      const ledEdges: [number, number][] = [
+        [-CW + 0.07, CD], [CW - 0.07, CD], [CW - 0.07, -CD], [-CW + 0.07, -CD],
+      ];
+      for (const [ex, ez] of ledEdges) {
         const [ax, ay] = project(r(ex, 0, ez));
         const [bx, by] = project(r(ex, -CH, ez));
         ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
       }
       ctx.restore();
 
-      // Animated scan line sweeping down the front face
-      const scanProgress = (frame * 0.8 % 200) / 200;
+      const scanProgress = ((frame * 0.8) % 200) / 200;
       const sy = -CH * scanProgress;
       const SL = [r(-CW, sy + 0.08, CD), r(CW, sy + 0.08, CD), r(CW, sy - 0.08, CD), r(-CW, sy - 0.08, CD)];
       const slp = SL.map(project);
@@ -164,7 +167,6 @@ export default function HeroCanvas() {
       ctx.fillStyle = slg;
       ctx.fill();
 
-      // Depth measurement annotation on right edge
       const [x1, y1] = project(r(CW + 0.28, 0, 0));
       const [x2, y2] = project(r(CW + 0.28, -CH, 0));
       ctx.save();
@@ -181,7 +183,6 @@ export default function HeroCanvas() {
       ctx.fillText('2.2m', (x1 + x2) / 2 + 8, (y1 + y2) / 2 + 4);
       ctx.restore();
 
-      // Floating particles rising from container opening
       ctx.save();
       ctx.shadowBlur = 8;
       ctx.shadowColor = ACCENT;
