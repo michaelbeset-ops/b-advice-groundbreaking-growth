@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Leaf, Lightbulb, Shield, Recycle, Wrench, ClipboardList, TrendingUp, Settings, FileText, ArrowRight, Phone, Mail, MapPin, Monitor } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
+import HeroCanvas from "@/components/HeroCanvas";
 
 const iconMap: Record<string, React.ReactNode> = {
   Recycle: <Recycle className="w-7 h-7" />,
@@ -39,39 +40,38 @@ const Index: React.FC = () => {
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center bg-hero overflow-hidden">
-        {/* Animated bg elements */}
-        <div className="absolute inset-0">
+        {/* 3D underground container canvas */}
+        <HeroCanvas />
+
+        {/* Ambient glow blobs */}
+        <div className="absolute inset-0 pointer-events-none">
           <motion.div
-            className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-secondary/5 blur-[120px]"
-            animate={{ scale: [1, 1.2, 1], x: [0, 30, 0], y: [0, -20, 0] }}
+            className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-secondary/4 blur-[100px]"
+            animate={{ scale: [1, 1.2, 1], x: [0, 20, 0], y: [0, -15, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-secondary/3 blur-[100px]"
-            animate={{ scale: [1, 1.15, 1], x: [0, -20, 0], y: [0, 30, 0] }}
+            className="absolute bottom-1/3 left-1/3 w-[400px] h-[400px] rounded-full bg-secondary/3 blur-[80px]"
+            animate={{ scale: [1, 1.15, 1], x: [0, -15, 0], y: [0, 20, 0] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute top-1/2 left-1/2 w-[300px] h-[300px] rounded-full bg-primary-foreground/3 blur-[80px]"
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
 
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
+        {/* Fine grid overlay */}
+        <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{
           backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }} />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-32 pb-20">
-          <div className="max-w-4xl">
+          <div className="max-w-[52%] min-[1024px]:max-w-[48%] max-[767px]:max-w-full">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="inline-block px-4 py-1.5 bg-secondary/15 text-secondary text-sm font-semibold rounded-full mb-6 border border-secondary/20">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary/15 text-secondary text-sm font-semibold rounded-full mb-6 border border-secondary/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
                 Uw afval en container specialist
               </span>
             </motion.div>
@@ -88,12 +88,12 @@ const Index: React.FC = () => {
             </motion.h1>
 
             <motion.p
-              className="mt-6 text-lg md:text-xl text-primary-foreground/70 max-w-2xl leading-relaxed"
+              className="mt-6 text-lg md:text-xl text-primary-foreground/70 max-w-xl leading-relaxed"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             >
-              B-Advice ontwikkelt duurzame oplossingen voor afvalinzameling met ondergrondse containersystemen. 
+              B-Advice ontwikkelt duurzame oplossingen voor afvalinzameling met ondergrondse containersystemen.
               Innovatief, betrouwbaar en met respect voor de leefomgeving.
             </motion.p>
 
@@ -120,12 +120,31 @@ const Index: React.FC = () => {
                 Login B-Organized
               </a>
             </motion.div>
+
+            {/* Stats row */}
+            <motion.div
+              className="mt-12 flex flex-wrap gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            >
+              {[
+                { value: "500+", label: "Containersystemen" },
+                { value: "15+", label: "Jaar ervaring" },
+                { value: "100%", label: "Duurzaam" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col">
+                  <span className="text-2xl font-extrabold text-gradient">{stat.value}</span>
+                  <span className="text-xs text-primary-foreground/50 mt-0.5">{stat.label}</span>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
